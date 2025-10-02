@@ -22,10 +22,14 @@ export interface User {
     };
 }
 
-
 export interface UsersState {
     list: User[];
     loading: boolean;
     error: string | null;
     lastLoadedAt: number | null
+}
+
+export interface CreateUserFormValues {
+    name: string;
+    email: string;
 }
