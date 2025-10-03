@@ -16,17 +16,17 @@ const UserDetails: React.FC = () => {
     }, [id]);
     console.log("user:", user);
 
-    if (!user) return <p>User not found.</p>;
+    if (!user && !loading) return <p>User not found.</p>;
     if (loading) return <p>Loading user details...</p>;
     return (
         <div>
-            <h2>{user.name}</h2>
-            <p>Email: {user.email}</p>
-            <p>Username: {user.username}</p>
-            <p>Phone: {user.phone}</p>
-            <p>Website: {user.website}</p>
-            <p>Company: {user.company.name}</p>
-            <p>Address: {user.address.street}, {user.address.city}</p>
+            <h2>{user?.name}</h2>
+            <p>Email: {user?.email}</p>
+            <p>Username: {user?.username}</p>
+            <p>Phone: {user?.phone}</p>
+            <p>Website: {user?.website}</p>
+            <p>Company: {user?.company.name}</p>
+            <p>Address: {user?.address.street}, {user?.address.city}</p>
         </div>
     );
 };
