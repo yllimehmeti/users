@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchUsers, removeUser, selectUsers } from '../features/userSlice';
+import { fetchUsersIfNeeded, removeUser, selectUsers } from '../features/userSlice';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -22,7 +22,7 @@ const UsersList: React.FC = () => {
     const error = useAppSelector(state => state.users.error);
     const navigate = useNavigate();
     useEffect(() => {
-        dispatch(fetchUsers());
+        dispatch(fetchUsersIfNeeded());
     }, [dispatch]);
     const [search, setSearch] = useState<string>("");
     if (loading) return <p>Loading users...</p>;
@@ -74,7 +74,9 @@ const UsersList: React.FC = () => {
                                         <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => {
                                             dispatch(removeUser(user.id));
                                         }}>Delete</Button>
-                                        <Button variant="outlined" startIcon={<EditIcon />}>Edit</Button>
+                                        <Button variant="outlined" startIcon={<EditIcon />} onClick={() => {
+                                            navigate(`/users/edit/${user.id}`);
+                                        }}>Edit</Button>
                                     </div>
 
                                 </TableCell>

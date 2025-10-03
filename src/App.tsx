@@ -1,5 +1,5 @@
 import './App.css'
-import UsersList from './components/usersList'
+import UsersList from './components/UsersList'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import UserDetails from './components/UserDetails';
 import NotFound from './components/404';
@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect, useState } from 'react';
+import EditUser from './components/EditUser';
 
 
 
@@ -37,6 +38,11 @@ function App() {
       path: "/",
       name: "Users List",
       element: <UsersList />
+    },
+    {
+      path: "/users/edit/:id",
+      name: "Edit User",
+      element: <EditUser />
     }
   ];
   useEffect(() => {

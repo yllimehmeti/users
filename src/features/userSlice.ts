@@ -18,6 +18,18 @@ export const fetchUsers = createAsyncThunk<User[]>(
     }
 );
 
+export const fetchUsersIfNeeded = () => (dispatch: any, getState: () => RootState) => {
+    const { users } = getState();
+
+    // If already loading or recently loaded, skip
+    const STALE_TIME = 60_000; // 1 minute
+    const isStale = !users.lastLoadedAt || Date.now() - users.lastLoadedAt > STALE_TIME;
+
+    if (!users.loading && (users.list.length === 0 || isStale)) {
+        dispatch(fetchUsers());
+    }
+};
+
 const usersSlice = createSlice({
     name: 'users',
     initialState,
@@ -27,6 +39,9 @@ const usersSlice = createSlice({
         },
         editUser: (state, action: PayloadAction<User>) => {
             const index = state.list.findIndex(u => u.id === action.payload.id);
+            console.log("editUser index:", index, action.payload);
+            console.log("before:", state.list.length);
+
             if (index !== -1) state.list[index] = action.payload;
         },
         removeUser: (state, action: PayloadAction<number>) => {
